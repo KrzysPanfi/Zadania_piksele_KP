@@ -3,22 +3,19 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
 public class Main {
     public static void main(String[] args) {
         String filepath = "C:\\Users\\PC\\Downloads\\dane_2\\dane_2\\dane.txt";
-        ArrayList<String> liczbySt = Download(filepath);
-        if(liczbySt==null){
+        ArrayList<String> linie = Download(filepath);
+        if (linie == null) {
             System.out.println("Błąd wczytywania pliku");
-        }
-        else {
-            ArrayList<Integer> liczbyint = Tointarraylist(liczbySt);
-            int[][] img = To2darray(liczbySt);
+        } else {
+            ArrayList<Integer> liczbyint = Tointarraylist(linie);
+            int[][] img = To2darray(linie);
             for (String i : zad61(liczbyint)) {
                 System.out.println(i);
             }
-            for (String i : zad62(liczbySt))
+            for (String i : zad62(linie))
                 System.out.println(i);
 
             for (String i : zad63(img))
@@ -28,10 +25,9 @@ public class Main {
         }
     }
 
-    private static ArrayList<String> Download(String filepath) {
+    public static ArrayList<String> Download(String filepath) {
         ArrayList<String> Wynik = new ArrayList<>();
         try {
-
             FileReader fileReader = new FileReader(filepath);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line;
@@ -39,14 +35,12 @@ public class Main {
             while ((line = bufferedReader.readLine()) != null) {
                 Wynik.add(line);
             }
-
             bufferedReader.close();
             return Wynik;
 
         } catch (IOException e) {
 
             e.printStackTrace();
-
         }
         return null;
     }
@@ -61,6 +55,7 @@ public class Main {
         }
         return img;
     }
+
     public static ArrayList<Integer> Tointarraylist(ArrayList<String> linijki) {
         ArrayList<Integer> wynik = new ArrayList<>();
         String[] liczby;
@@ -110,38 +105,30 @@ public class Main {
 
     public static ArrayList<String> zad63(int[][] img) {
         ArrayList<String> Wynik = new ArrayList<>();
-        int count = 0;
-
+        int c = 0;
         for (int x = 0; x < 200; x++) {
             for (int y = 0; y < 320; y++) {
                 ArrayList<Integer[]> near = new ArrayList<>();
-                    if (x != 0)
-                        near.add(new Integer[]{x - 1, y});
-                    if (x != 199)
-                        near.add(new Integer[]{x + 1, y});
-                    if (y != 0)
-                        near.add(new Integer[]{x, y - 1});
-                    if (y != 319)
-                        near.add(new Integer[]{x, y + 1});
-
-                int c = 0;
+                if (x != 0)
+                    near.add(new Integer[]{x - 1, y});
+                if (x != 199)
+                    near.add(new Integer[]{x + 1, y});
+                if (y != 0)
+                    near.add(new Integer[]{x, y - 1});
+                if (y != 319)
+                    near.add(new Integer[]{x, y + 1});
                 for (Integer[] points : near) {
                     if (Math.abs(img[x][y] - img[points[0]][points[1]]) > 128) {
                         c++;
+                        break;
                     }
-
                 }
-                if (c > 0) {
-                    count++;
-                }
-
             }
         }
         Wynik.add("Kontrastujące");
-        Wynik.add(Integer.toString(count));
+        Wynik.add(Integer.toString(c));
         return Wynik;
     }
-
     public static ArrayList<String> zad64(int[][] img) {
         ArrayList<String> Wynik = new ArrayList<>();
         int tmp = 0;
@@ -149,12 +136,11 @@ public class Main {
             int c = 0;
             int cmax = 0;
             for (int j = 1; j < 200; j++) {
-                if (img[j][i] == img[j-1][i]) {
+                if (img[j][i] == img[j - 1][i]) {
                     c++;
                 } else {
                     if (c > cmax) {
                         cmax = ++c;
-
                     }
                     c = 0;
                 }
@@ -163,12 +149,10 @@ public class Main {
                 }
             }
         }
-
-            Wynik.add("Najdluzsza kolumna");
-            Wynik.add(Integer.toString(tmp));
-            return Wynik;
-
-        }
+        Wynik.add("Najdluzsza kolumna");
+        Wynik.add(Integer.toString(tmp));
+        return Wynik;
+    }
 
 }
         
