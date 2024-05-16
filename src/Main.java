@@ -7,20 +7,26 @@ import java.util.ArrayList;
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
     public static void main(String[] args) {
-        String filepath = "C:\\Users\\l0860\\Downloads\\dane_2\\dane_2\\dane.txt";
+        String filepath = "C:\\Users\\PC\\Downloads\\dane_2\\dane_2\\dane.txt";
         ArrayList<String> liczbySt = Download(filepath);
-        ArrayList<Integer> liczbyint = Tointarraylist(liczbySt);
-        int[][] img = To2darray(liczbySt);
-        for (String i : zad61(liczbyint)) {
-            System.out.println(i);
+        if(liczbySt==null){
+            System.out.println("Błąd wczytywania pliku");
         }
-        for (String i : zad62(liczbySt))
-            System.out.println(i);
+        else {
+            ArrayList<Integer> liczbyint = Tointarraylist(liczbySt);
+            int[][] img = To2darray(liczbySt);
+            int [][] img2=To2turneddarray(liczbySt);
+            for (String i : zad61(liczbyint)) {
+                System.out.println(i);
+            }
+            for (String i : zad62(liczbySt))
+                System.out.println(i);
 
-        for (String i : zad63(img))
-            System.out.println(i);
-        for (String i : zad64(img))
-            System.out.println(i);
+            for (String i : zad63(img))
+                System.out.println(i);
+            for (String i : zad64(img))
+                System.out.println(i);
+        }
     }
 
     private static ArrayList<String> Download(String filepath) {
@@ -52,6 +58,16 @@ public class Main {
             String[] liczby = linijki.get(i).split(" ");
             for (int j = 0; j < 320; j++) {
                 img[i][j] = Integer.parseInt(liczby[j]);
+            }
+        }
+        return img;
+    }
+    public static int[][] To2turneddarray(ArrayList<String> linijki) {
+        int[][] img = new int[320][200];
+        for (int i = 0; i < 200; i++) {
+            String[] liczby = linijki.get(i).split(" ");
+            for (int j = 0; j < 320; j++) {
+                img[j][i] = Integer.parseInt(liczby[j]);
             }
         }
         return img;
@@ -140,23 +156,31 @@ public class Main {
 
     public static ArrayList<String> zad64(int[][] img) {
         ArrayList<String> Wynik = new ArrayList<>();
-        int cmax = 0;
+        int tmp = 0;
         for (int i = 1; i < 320; i++) {
             int c = 0;
-            for (int j = 0; j < 200; j++) {
-                if (img[j][i] == img[j][i - 1]) {
-                  c++;
+            int cmax = 0;
+            for (int j = 1; j < 200; j++) {
+                if (img[j][i] == img[j-1][i]) {
+                    c++;
+                } else {
+                    if (c > cmax) {
+                        cmax = ++c;
+
+                    }
+                    c = 0;
                 }
-                else if (c>cmax){
-                    cmax=c;
-                    c=0;
+                if (tmp < cmax) {
+                    tmp = cmax;
                 }
             }
         }
-        Wynik.add("Najdluzsza kolumna");
-        Wynik.add(Integer.toString(cmax));
-        return Wynik;
-    }
+
+            Wynik.add("Najdluzsza kolumna");
+            Wynik.add(Integer.toString(tmp));
+            return Wynik;
+
+        }
 
 }
         
