@@ -15,7 +15,6 @@ public class Main {
         else {
             ArrayList<Integer> liczbyint = Tointarraylist(liczbySt);
             int[][] img = To2darray(liczbySt);
-            int [][] img2=To2turneddarray(liczbySt);
             for (String i : zad61(liczbyint)) {
                 System.out.println(i);
             }
@@ -62,17 +61,6 @@ public class Main {
         }
         return img;
     }
-    public static int[][] To2turneddarray(ArrayList<String> linijki) {
-        int[][] img = new int[320][200];
-        for (int i = 0; i < 200; i++) {
-            String[] liczby = linijki.get(i).split(" ");
-            for (int j = 0; j < 320; j++) {
-                img[j][i] = Integer.parseInt(liczby[j]);
-            }
-        }
-        return img;
-    }
-
     public static ArrayList<Integer> Tointarraylist(ArrayList<String> linijki) {
         ArrayList<Integer> wynik = new ArrayList<>();
         String[] liczby;
