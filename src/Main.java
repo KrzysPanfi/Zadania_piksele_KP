@@ -15,8 +15,10 @@ public class Main {
         }
     for(String i:zad62(liczbySt))
         System.out.println(i);
-    }
 
+    for(String i:zad63(liczbySt))
+            System.out.println(i);
+    }
     private static ArrayList<String> Download(String filepath) {
         ArrayList<String>Wynik=new ArrayList<>();
         try {
@@ -80,10 +82,51 @@ public class Main {
                }
            }
        }
-       Wynik.add("Liniji do usunięcia");
+       Wynik.add("Linijki do usunięcia");
        Wynik.add(Integer.toString(liniki_do_usuniecia));
        return Wynik;
     }
+    public static ArrayList<String> zad63(ArrayList<String>linijki){
+ArrayList<String>Wynik=new ArrayList<>();
+        int count=0;
+    int [][]img= new int[200][320];
+    for(int i=0;i<200;i++){
+        String[]liczby=linijki.get(i).split(" ");
+        for(int j=0;j<320;j++){
+            img[i][j]=Integer.parseInt(liczby[j]);
+        }
+    }
+    for(int x=0;x<200;x++){
+        for (int y=0;y<320;y++){
+            ArrayList<Integer[]> near = new ArrayList<>();
+            if(x>=0 && x<200 && y>=0 && y < 320) {
+                if(x != 0)
+                    near.add(new Integer[] {x-1, y});
+                if(x != 199)
+                    near.add(new Integer[] {x+1, y});
+                if(y != 0)
+                    near.add(new Integer[] {x, y-1});
+                if(y != 319)
+                    near.add(new Integer[] {x, y+1});
+            }
+            int c = 0;
+            for(Integer[] points : near) {
+                if(Math.abs(img[x][y] - img[points[0]][points[1]]) > 128) {
+                    c++;
+                }
+
+                }
+            if(c>0){
+                count++;
+            }
+
+        }
+    }
+        Wynik.add("Kontrastujące");
+        Wynik.add(Integer.toString(count));
+    return Wynik;
+    }
+
 }
         
     
